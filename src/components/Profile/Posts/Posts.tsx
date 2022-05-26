@@ -14,10 +14,9 @@ export const Posts = () => {
                 </div>
             </div>
             <div>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
+                <Post messageText={"It's my first message"} likesNumber={16}/>
+                <Post messageText={"It's second message"} likesNumber={4}/>
+
             </div>
         </div>
 
