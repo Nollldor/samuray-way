@@ -9,6 +9,12 @@
 
 .dialog {
     padding: 10px;
+
+}
+
+.dialog a{
+    text-decoration: none;
+    color: white;
 }
 
 .dialogs .active {
