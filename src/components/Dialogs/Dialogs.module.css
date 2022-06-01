@@ -1,0 +1,24 @@
+.dialogsWrapper {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogs {
+
+}
+
+.dialog {
+    padding: 10px;
+}
+
+.dialogs .active {
+    color: gold;
+}
+
+.messages {
+
+}
+
+.message {
+    padding: 10px;
+}
