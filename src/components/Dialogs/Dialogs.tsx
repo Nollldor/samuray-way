@@ -1,37 +1,22 @@
 import React from "react";
 import s from "./Dialogs.module.css"
-import {NavLink} from "react-router-dom";
+import {Dialog} from "./Dialog";
+import {Message} from "./Message";
 
 export const Dialogs = () => {
 
-    return(
+    return (
         <div className={s.dialogsWrapper}>
             <div className={s.dialogs}>
-                <div className={s.dialog+" "+s.active}>
-                    <NavLink to="/dialogs/1" className={({isActive}) =>
-                        isActive ? s.active : undefined
-                    }>Dima</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/2" className={({isActive}) =>
-                        isActive ? s.active : undefined
-                    }>Valera</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/3" className={({isActive}) =>
-                        isActive ? s.active : undefined
-                    }>Sasha</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/4" className={({isActive}) =>
-                        isActive ? s.active : undefined
-                    }>Sveta</NavLink>
-                </div>
+                <Dialog title="Dima" id={1}/>
+                <Dialog title="Valera" id={2}/>
+                <Dialog title="Sasha" id={3}/>
+                <Dialog title="Sveta" id={4}/>
             </div>
             <div className={s.messages}>
-                <div className={s.message}>Yo</div>
-                <div className={s.message}>hi!</div>
-                <div className={s.message}>How are you&</div>
+                <Message message="Yo"/>
+                <Message message="hi!"/>
+                <Message message="How are you&"/>
             </div>
         </div>
     );
