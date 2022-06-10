@@ -8,15 +8,17 @@ type PostType = {
     likesNumber: number
 }
 type PostsDatatype = PostType[]
-export const Posts = () => {
 
-    const PostsData: PostsDatatype = [
-        {messageText: "It's my first message", likesNumber: 16},
-        {messageText: "It's second message!", likesNumber: 4},
+type PostsPropsType = {
+    PostsData: PostsDatatype
+}
 
-    ]
+export const Posts = (props: PostsPropsType) => {
 
-    const PostsElements = PostsData.map((post,index)=> <Post key={index} messageText={post.messageText} likesNumber={post.likesNumber}/>)
+
+
+    const PostsElements = props.PostsData.map((post,index)=> <Post key={index} messageText={post.messageText} likesNumber={post.likesNumber}/>)
+
     return (
         <div className={s.profile}>
             <MyPost/>
