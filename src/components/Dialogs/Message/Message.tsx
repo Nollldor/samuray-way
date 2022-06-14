@@ -6,7 +6,8 @@ type MessagePropsType = {
 }
 
 export const Message = (props: MessagePropsType) => {
+
     return (
-        <div className={s.message}>{props.message}</div>
+            <div className={s.message}>{props.message}</div>
     )
 }

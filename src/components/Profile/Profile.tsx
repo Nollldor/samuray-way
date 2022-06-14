@@ -9,8 +9,8 @@ type ProfilePropsType = {
     PostsData: {
         posts: PostsDatatype
     }
+    addPostCallback: (text: string) => void
 }
-
 
 
 export const Profile = (props: ProfilePropsType) => {
@@ -18,7 +18,7 @@ export const Profile = (props: ProfilePropsType) => {
     return (
         <div className={s.profile}>
             <ProfileInfo/>
-            <Posts PostsData={props.PostsData.posts}/>
+            <Posts PostsData={props.PostsData.posts} addPostCallback={props.addPostCallback}/>
         </div>
 
     );

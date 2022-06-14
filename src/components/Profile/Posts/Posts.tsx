@@ -11,20 +11,21 @@ type PostsDatatype = PostType[]
 
 type PostsPropsType = {
     PostsData: PostsDatatype
+    addPostCallback: (text: string) => void
 }
 
 export const Posts = (props: PostsPropsType) => {
 
 
-
-    const PostsElements = props.PostsData.map((post,index)=> <Post key={index} messageText={post.messageText} likesNumber={post.likesNumber}/>)
+    const PostsElements = props.PostsData.map((post, index) => <Post key={index} messageText={post.messageText}
+                                                                     likesNumber={post.likesNumber}/>)
 
     return (
         <div className={s.profile}>
-            <MyPost/>
+            <MyPost addPostCallback={props.addPostCallback}/>
 
             <div className={s.messages}>
-                { PostsElements }
+                {PostsElements}
             </div>
         </div>
 

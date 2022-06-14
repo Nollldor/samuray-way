@@ -12,6 +12,7 @@ import {StateType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType
+    addPostCallback: (text: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -22,11 +23,11 @@ function App(props: AppPropsType) {
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
                     <Routes>
-                        <Route path="/profile" element={<Profile PostsData={props.state.profilePage}/>}/>
+                        <Route path="/profile" element={<Profile PostsData={props.state.profilePage} addPostCallback={props.addPostCallback}/>}/>
                         <Route path="/messages" element={<Dialogs DialogsData={props.state.dialogsPage}/>}/>
-                        <Route path="/news" element={<News />}/>
-                        <Route path="/music" element={<Music />}/>
-                        <Route path="/settings" element={<Settings />}/>
+                        <Route path="/news" element={<News/>}/>
+                        <Route path="/music" element={<Music/>}/>
+                        <Route path="/settings" element={<Settings/>}/>
                     </Routes>
                 </div>
 
