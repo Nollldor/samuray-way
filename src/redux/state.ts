@@ -1,4 +1,7 @@
-import {renderEntireTree} from "../render";
+let renderEntireTree = (state:StateType) => {
+    console.log("state changed")
+}
+
 
 type PostType = {
     messageText: string
@@ -21,6 +24,7 @@ export type MessagesDatatype = MessageType[]
 
 type profilePageType = {
     posts: PostsDatatype
+    NewPostText: string
 }
 
 type dialogsPage = {
@@ -40,7 +44,7 @@ export const state: StateType = {
             {messageText: "It's my first message", likesNumber: 16, id: 0},
             {messageText: "It's second message!", likesNumber: 4, id: 1},
         ],
-
+        NewPostText: 'it-kamasutra'
     },
     dialogsPage: {
         messages: [
@@ -59,12 +63,22 @@ export const state: StateType = {
 }
 
 
-export const addPost = (text: string) => {
+export const addPost = () => {
     const newPost: PostType = {
         likesNumber: 0,
-        messageText: text,
+        messageText: state.profilePage.NewPostText,
         id: state.profilePage.posts.length
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.NewPostText = ""
     renderEntireTree(state)
+}
+
+export const ChangeNewPostText = (text: string) => {
+    state.profilePage.NewPostText = text
+    renderEntireTree(state)
+}
+
+export const subscribe = (observer: (state:StateType)=>void) => {
+    renderEntireTree = observer
 }

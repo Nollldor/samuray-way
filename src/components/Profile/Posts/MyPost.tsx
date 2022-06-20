@@ -1,7 +1,9 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 
 type MyPostPropsType = {
-    addPostCallback: (text: string) => void
+    NewPostText: string
+    addPostCallback: () => void
+    ChangeNewPostText: (text: string) => void
 }
 
 export const MyPost = (props: MyPostPropsType) => {
@@ -9,22 +11,26 @@ export const MyPost = (props: MyPostPropsType) => {
 
     const addPost = () => {
         if (newPostElement.current) {
-            props.addPostCallback(newPostElement.current.value)
-            newPostElement.current.value = ''
+            props.addPostCallback()
+
         }
     }
 
-        return (
+    const onPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        props.ChangeNewPostText(e.currentTarget.value)
+    }
+
+    return (
+        <div>
+            <h3>My posts</h3>
             <div>
-                <h3>My posts</h3>
                 <div>
-                    <div>
-                        <textarea ref={newPostElement}>New Post</textarea>
-                    </div>
-                    <div>
-                        <button onClick={addPost}>Отправить</button>
-                    </div>
+                    <textarea ref={newPostElement} onChange={onPostChange} value={props.NewPostText}/>
+                </div>
+                <div>
+                    <button onClick={addPost}>Отправить</button>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
+}
