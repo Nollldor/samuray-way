@@ -1,23 +1,25 @@
 import React, {ChangeEvent} from "react";
-import {ActionsTypes} from "../../../redux/state";
+import {ActionsTypes, AddPostActionCreator, ChangeNewPostTextActionCreator} from "../../../redux/state";
 
 type MyPostPropsType = {
     NewPostText: string
     dispatch: (action: ActionsTypes) => void
 }
 
+
+
 export const MyPost = (props: MyPostPropsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
         if (newPostElement.current) {
-            props.dispatch({type: 'ADD-POST'})
+            props.dispatch(AddPostActionCreator())
 
         }
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: "CHANGE-NEW-POST-TEXT", text: e.currentTarget.value})
+        props.dispatch(ChangeNewPostTextActionCreator(e.currentTarget.value))
     }
 
     return (

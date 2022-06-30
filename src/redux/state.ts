@@ -32,16 +32,9 @@ export type StateType = {
     dialogsPage: dialogsPage,
 }
 
-export type AddPostActionType = {
-    type: 'ADD-POST',
-}
 
-export type ChangeNewPostTextActionType = {
-    type: 'CHANGE-NEW-POST-TEXT',
-    text: string
-}
 
-export type ActionsTypes = AddPostActionType | ChangeNewPostTextActionType
+
 
 export type StoreType = {
     _state: StateType,
@@ -124,7 +117,16 @@ export const store: StoreType = {
 
 }
 
+export type ActionsTypes = ReturnType<typeof AddPostActionCreator> | ReturnType<typeof ChangeNewPostTextActionCreator>
 
+export const AddPostActionCreator = () => ({
+    type: 'ADD-POST'
+} as const)
+
+export const ChangeNewPostTextActionCreator = (text: string) => ({
+    type: "CHANGE-NEW-POST-TEXT",
+    text: text
+} as const)
 
 
 
