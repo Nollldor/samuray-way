@@ -27,7 +27,8 @@ function App(props: AppPropsType) {
                             PostsData={props.state.profilePage}
                             dispatch={props.dispatch.bind(props.state)}
                         />}/>
-                        <Route path="/messages" element={<Dialogs DialogsData={props.state.dialogsPage}/>}/>
+                        <Route path="/messages" element={<Dialogs DialogsData={props.state.dialogsPage}
+                                                                  dispatch={props.dispatch.bind(props.state)}/>}/>
                         <Route path="/news" element={<News/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>

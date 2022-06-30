@@ -1,20 +1,27 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from "./Dialogs.module.css"
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
-import {DialogsDatatype, MessagesDatatype} from "../../redux/state";
+import {
+    ActionsTypes,
+    AddMessageActionCreator,
+    DialogsDatatype,
+    MessagesDatatype,
+    UpdateMessageBodyActionCreator
+} from "../../redux/state";
 
 
 type DialogsPropsType = {
     DialogsData: {
         messages: MessagesDatatype
+        NewMessageBody: string,
         dialogs: DialogsDatatype
     }
+    dispatch: (action: ActionsTypes) => void
 }
 
 
 export const Dialogs = (props: DialogsPropsType) => {
-
 
 
     const DialogsElements = props.DialogsData.dialogs.map(el => <Dialog key={el.id} title={el.name} id={el.id}/>)
@@ -22,10 +29,15 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const MessagesElements = props.DialogsData.messages.map(el => <Message key={el.id} message={el.message}/>)
 
-    let newMessageElement = React.createRef<HTMLTextAreaElement>()
 
     const addMessage = () => {
-        alert(newMessageElement.current?.value)
+        if (props.DialogsData.NewMessageBody.trim()) {
+            props.dispatch(AddMessageActionCreator())
+        }
+    }
+
+    const UpdateMessageBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(UpdateMessageBodyActionCreator(e.currentTarget.value))
     }
 
     return (
@@ -35,8 +47,11 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 {MessagesElements}
-                <div><textarea ref={newMessageElement}></textarea></div>
-                <button onClick={addMessage}>Отправить</button>
+                <div><textarea value={props.DialogsData.NewMessageBody} onChange={UpdateMessageBody}
+                               placeholder={'Enter your message'}></textarea></div>
+                <div>
+                    <button onClick={addMessage}>Отправить</button>
+                </div>
             </div>
         </div>
     );
