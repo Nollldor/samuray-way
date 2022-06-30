@@ -1,8 +1,3 @@
-let renderEntireTree = (state:StateType) => {
-    console.log("state changed")
-}
-
-
 type PostType = {
     messageText: string
     likesNumber: number
@@ -37,8 +32,8 @@ export type StateType = {
     dialogsPage: dialogsPage,
 }
 
-
-export const state: StateType = {
+export const store = {
+    _state: {
     profilePage: {
         posts: [
             {messageText: "It's my first message", likesNumber: 16, id: 0},
@@ -60,25 +55,44 @@ export const state: StateType = {
         ],
     },
 
+},
+    getState(){
+      return this._state
+    },
+    _callSubscriber (state:StateType) {
+        console.log("state changed")
+    },
+    addPost () {
+        const newPost: PostType = {
+            likesNumber: 0,
+            messageText: this._state.profilePage.NewPostText,
+            id: this._state.profilePage.posts.length
+        }
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.NewPostText = ""
+        this._callSubscriber(this._state)
+    },
+    ChangeNewPostText (text: string) {
+        this._state.profilePage.NewPostText = text
+        this._callSubscriber(this._state)
+    },
+    subscribe (observer: (state:StateType)=>void) {
+        this._callSubscriber = observer
+    },
 }
 
 
-export const addPost = () => {
-    const newPost: PostType = {
-        likesNumber: 0,
-        messageText: state.profilePage.NewPostText,
-        id: state.profilePage.posts.length
-    }
-    state.profilePage.posts.push(newPost)
-    state.profilePage.NewPostText = ""
-    renderEntireTree(state)
-}
 
-export const ChangeNewPostText = (text: string) => {
-    state.profilePage.NewPostText = text
-    renderEntireTree(state)
-}
 
-export const subscribe = (observer: (state:StateType)=>void) => {
-    renderEntireTree = observer
-}
+
+
+
+
+
+
+
+
+
+
+
+
