@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from "react";
+import {ActionsTypes} from "../../../redux/state";
 
 type MyPostPropsType = {
     NewPostText: string
-    addPostCallback: () => void
-    ChangeNewPostText: (text: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 export const MyPost = (props: MyPostPropsType) => {
@@ -11,13 +11,13 @@ export const MyPost = (props: MyPostPropsType) => {
 
     const addPost = () => {
         if (newPostElement.current) {
-            props.addPostCallback()
+            props.dispatch({type: 'ADD-POST'})
 
         }
     }
 
-    const onPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.ChangeNewPostText(e.currentTarget.value)
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch({type: "CHANGE-NEW-POST-TEXT", text: e.currentTarget.value})
     }
 
     return (

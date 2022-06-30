@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Posts.module.css'
 import {Post} from "./Post/Post";
 import {MyPost} from "./MyPost";
+import {ActionsTypes} from "../../../redux/state";
 
 type PostType = {
     messageText: string
@@ -14,8 +15,7 @@ type PostsPropsType = {
         posts: PostsDatatype
         NewPostText: string
     }
-    addPostCallback: () => void
-    ChangeNewPostText: (text:string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 export const Posts = (props: PostsPropsType) => {
@@ -26,7 +26,7 @@ export const Posts = (props: PostsPropsType) => {
 
     return (
         <div className={s.profile}>
-            <MyPost addPostCallback={props.addPostCallback} NewPostText={props.PostsData.NewPostText} ChangeNewPostText={props.ChangeNewPostText}/>
+            <MyPost dispatch={props.dispatch.bind(props.PostsData)} NewPostText={props.PostsData.NewPostText}/>
 
             <div className={s.messages}>
                 {PostsElements}

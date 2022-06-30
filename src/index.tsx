@@ -1,17 +1,17 @@
 import React from 'react';
 import './index.css';
-import {StateType, store} from "./redux/state";
+import {store, StoreType} from "./redux/state";
 import ReactDOM from 'react-dom';
 import App from './App';
 
-const renderEntireTree = (state: StateType) => {
+const renderEntireTree = (store: StoreType) => {
     ReactDOM.render(
-        <App state={state} addPostCallback={store.addPost.bind(store)} ChangeNewPostText={store.ChangeNewPostText.bind(store)}/>,
+        <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>,
         document.getElementById('root')
     );
 }
 
 
-renderEntireTree(store.getState())
+renderEntireTree(store)
 
 store.subscribe(renderEntireTree)

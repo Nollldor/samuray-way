@@ -8,12 +8,11 @@ import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StateType} from "./redux/state";
+import {ActionsTypes, StateType} from "./redux/state";
 
 type AppPropsType = {
     state: StateType
-    addPostCallback: () => void
-    ChangeNewPostText: (text:string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 function App(props: AppPropsType) {
@@ -26,8 +25,7 @@ function App(props: AppPropsType) {
                     <Routes>
                         <Route path="/profile" element={<Profile
                             PostsData={props.state.profilePage}
-                            addPostCallback={props.addPostCallback}
-                            ChangeNewPostText={props.ChangeNewPostText}
+                            dispatch={props.dispatch.bind(props.state)}
                         />}/>
                         <Route path="/messages" element={<Dialogs DialogsData={props.state.dialogsPage}/>}/>
                         <Route path="/news" element={<News/>}/>
