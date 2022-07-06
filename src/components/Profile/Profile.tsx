@@ -2,7 +2,9 @@ import React from 'react';
 import s from './Profile.module.css'
 import {Posts} from "./Posts/Posts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionsTypes, PostsDatatype} from "../../redux/state";
+import {PostsDatatype} from "../../redux/profile-reducer";
+import {DispatchType} from "../../redux/redux-store";
+
 
 
 type ProfilePropsType = {
@@ -10,7 +12,7 @@ type ProfilePropsType = {
         posts: PostsDatatype
         NewPostText: string
     }
-    dispatch: (action: ActionsTypes) => void
+    dispatch: DispatchType
 }
 
 

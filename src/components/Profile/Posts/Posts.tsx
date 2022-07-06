@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Posts.module.css'
 import {Post} from "./Post/Post";
 import {MyPost} from "./MyPost";
-import {ActionsTypes} from "../../../redux/state";
+import {DispatchType} from "../../../redux/redux-store";
 
 type PostType = {
     messageText: string
@@ -15,7 +15,7 @@ type PostsPropsType = {
         posts: PostsDatatype
         NewPostText: string
     }
-    dispatch: (action: ActionsTypes) => void
+    dispatch: DispatchType
 }
 
 export const Posts = (props: PostsPropsType) => {

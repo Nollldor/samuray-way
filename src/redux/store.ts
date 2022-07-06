@@ -1,3 +1,4 @@
+/*
 import {AddPostActionCreator, ChangeNewPostTextActionCreator, profileReducer} from "./profile-reducer";
 import {AddMessageActionCreator, dialogsReducer, UpdateMessageBodyActionCreator} from "./dialogs-reducer";
 
@@ -25,7 +26,7 @@ type profilePageType = {
     NewPostText: string
 }
 
-type dialogsPage = {
+type dialogsPageType = {
     messages: MessagesDatatype
     NewMessageBody: string
     dialogs: DialogsDatatype
@@ -102,7 +103,9 @@ export type ActionsTypes =
 
 
 
+*/
 
+export {}
 
 
 

@@ -3,11 +3,12 @@ import s from "./Dialogs.module.css"
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {
-    ActionsTypes,
+    AddMessageActionCreator,
     DialogsDatatype,
     MessagesDatatype,
-} from "../../redux/state";
-import {AddMessageActionCreator, UpdateMessageBodyActionCreator} from "../../redux/dialogs-reducer";
+    UpdateMessageBodyActionCreator
+} from "../../redux/dialogs-reducer";
+import {DispatchType} from "../../redux/redux-store";
 
 
 type DialogsPropsType = {
@@ -16,7 +17,7 @@ type DialogsPropsType = {
         NewMessageBody: string,
         dialogs: DialogsDatatype
     }
-    dispatch: (action: ActionsTypes) => void
+    dispatch: DispatchType
 }
 
 
