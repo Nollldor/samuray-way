@@ -1,5 +1,5 @@
-
 import {ActionsTypes} from "./redux-store";
+import {message} from "antd";
 
 type MessageType = {
     message: string
@@ -35,8 +35,6 @@ const initialState: dialogsPageType = {
 }
 
 
-
-
 export const UpdateMessageBodyActionCreator = (text: string) => ({
     type: 'UPDATE-MESSAGE-BODY',
     body: text
@@ -49,16 +47,14 @@ export const AddMessageActionCreator = () => ({
 export const dialogsReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case 'UPDATE-MESSAGE-BODY':
-            state.NewMessageBody = action.body
-            return state
+            return {...state, NewMessageBody: action.body}
         case 'ADD-MESSAGE':
-            const body = state.NewMessageBody
-            const newMessage = {
-                message: body,
-                id: (state.messages.length + 1)
+            return {
+                ...state, messages: [...state.messages, {
+                    message: state.NewMessageBody,
+                    id: (state.messages.length + 1)
+                }]
             }
-            state.messages.push(newMessage)
-            return state
         default:
             return state
     }

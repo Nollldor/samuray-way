@@ -1,4 +1,3 @@
-
 import {AddMessageActionCreator, UpdateMessageBodyActionCreator} from "./dialogs-reducer";
 import {ActionsTypes} from "./redux-store";
 
@@ -36,17 +35,13 @@ export const ChangeNewPostTextActionCreator = (text: string) => ({
 export const profileReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case 'ADD-POST':
-            const newPost = {
-                likesNumber: 0,
-                messageText: state.NewPostText,
-                id: state.posts.length
+            return {
+                ...state,
+                posts: [...state.posts, {likesNumber: 0, messageText: state.NewPostText, id: state.posts.length}],
+                NewPostText: ""
             }
-            state.posts.push(newPost)
-            state.NewPostText = ""
-            return state
         case 'CHANGE-NEW-POST-TEXT':
-            state.NewPostText = action.text
-            return state
+            return {...state, NewPostText: action.text}
         default:
             return state
     }

@@ -14,13 +14,13 @@ export type ActionsTypes =
     | ReturnType<typeof AddMessageActionCreator>
     | ReturnType<typeof UpdateMessageBodyActionCreator>
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
 })
 
 
-export const store = createStore(reducers)
+export const store = createStore(rootReducer)
 
 export type StateType = ReturnType<typeof store.getState>
 

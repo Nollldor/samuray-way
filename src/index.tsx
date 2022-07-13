@@ -3,7 +3,8 @@ import './index.css';
 import {store, StoreType} from "./redux/redux-store";
 import ReactDOM from 'react-dom';
 import App from './App';
-import {Provider} from "./StoreContext";
+import {Provider} from "react-redux";
+
 
 
 const renderEntireTree = (store: StoreType) => {
