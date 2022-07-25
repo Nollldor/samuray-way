@@ -1,7 +1,10 @@
+import axios from "axios";
 import React from "react";
 import {FC} from "react";
 import {userType} from "../../redux/users-reducer";
 import styles from './users.module.css'
+import userPhoto from '../../assets/img/small-user-avatar.png'
+
 type UsersPropsType = {
     users: userType[]
     follow: (id: number) => void
@@ -12,32 +15,9 @@ type UsersPropsType = {
 export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) => {
 
     if(users.length===0){
-        setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6sGddmMZFZCqb7aJFx5eV-8FGj2gJWz7abGntj8IuyYdAv7W2HEJyi5WY3xbpLLzf-Zg&usqp=CAU',
-                followed: true,
-                fullName: "Dmitry",
-                status: "I'm a boss",
-                location: {country: "Belarus", city: "Minsk"}
-            },
-            {
-                id: 2,
-                photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6sGddmMZFZCqb7aJFx5eV-8FGj2gJWz7abGntj8IuyYdAv7W2HEJyi5WY3xbpLLzf-Zg&usqp=CAU',
-                followed: false,
-                fullName: "Igor",
-                status: "I'm a boss too",
-                location: {country: "Russia", city: "Moscow"}
-            },
-            {
-                id: 3,
-                photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6sGddmMZFZCqb7aJFx5eV-8FGj2gJWz7abGntj8IuyYdAv7W2HEJyi5WY3xbpLLzf-Zg&usqp=CAU',
-                followed: true,
-                fullName: "Victor",
-                status: "I'm a boss too!!",
-                location: {country: "Ukraine", city: "Kiev"}
-            },
-        ])
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response=>{
+            setUsers(response.data.items)
+        })
     }
 
     return (
@@ -47,7 +27,7 @@ export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) =
                     return (
                         <div key={u.id}>
                             <span>
-                                <img src={u.photoUrl} className={styles.usersPhoto}/>
+                                <img src={u.photos.small? u.photos.small : userPhoto} className={styles.usersPhoto}/>
                             </span>
                             <span>
                                 {u.followed? <button onClick={()=>unfollow(u.id)}>Unfollow</button>
@@ -56,12 +36,12 @@ export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) =
 
                             <span>
                                 <span>
-                                    <div>{u.fullName}</div>
+                                    <div>{u.name}</div>
                                     <div>{u.status}</div>
                                 </span>
                                 <span>
-                                    <div>{u.location.country}</div>
-                                    <div>{u.location.city}</div>
+                                    <div>{"u.location.country"}</div>
+                                    <div>{"u.location.city"}</div>
                                 </span>
                             </span>
                         </div>
