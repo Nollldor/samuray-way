@@ -22,6 +22,7 @@ export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) =
 
     return (
         <div>
+
             {
                 users.map(u => {
                     return (
