@@ -1,37 +1,50 @@
-import axios from "axios";
-import React from "react";
-import {FC} from "react";
+import React, {FC} from "react";
+import styles from "./users.module.css";
+import userPhoto from "../../assets/img/small-user-avatar.png";
 import {userType} from "../../redux/users-reducer";
-import styles from './users.module.css'
-import userPhoto from '../../assets/img/small-user-avatar.png'
 
 type UsersPropsType = {
-    users: userType[]
+    currentPage: number
+    pageSize: number
+    totalUsersCount: number
     follow: (id: number) => void
     unfollow: (id: number) => void
-    setUsers: (users: userType[]) => void
+    onPageChanged: (page: number) => void
+    users: userType[]
 }
 
-export const Users: FC<UsersPropsType> = ({users, follow, unfollow, setUsers}) => {
-
-    if(users.length===0){
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response=>{
-            setUsers(response.data.items)
-        })
+export const Users: FC<UsersPropsType> = (
+    {
+        currentPage,
+        pageSize,
+        totalUsersCount,
+        follow,
+        unfollow,
+        onPageChanged,
+        users
+    }) => {
+    const pageCount = Math.ceil(totalUsersCount / pageSize)
+    let pages = []
+    for (let i = 1; i <= pageCount; i++) {
+        pages.push(i)
     }
 
     return (
         <div>
+            <div>
+                {pages.map((p, i) => <span className={currentPage === p ? styles.selectedPage : ""} key={i}
+                                           onClick={() => onPageChanged(p)}>{p}</span>)}
+            </div>
             {
                 users.map(u => {
                     return (
                         <div key={u.id}>
                             <span>
-                                <img src={u.photos.small? u.photos.small : userPhoto} className={styles.usersPhoto}/>
+                                <img src={u.photos.small ? u.photos.small : userPhoto} className={styles.usersPhoto}/>
                             </span>
                             <span>
-                                {u.followed? <button onClick={()=>unfollow(u.id)}>Unfollow</button>
-                                    :<button onClick={()=>follow(u.id)}>Follow</button> }
+                                {u.followed ? <button onClick={() => unfollow(u.id)}>Unfollow</button>
+                                    : <button onClick={() => follow(u.id)}>Follow</button>}
                             </span>
 
                             <span>
