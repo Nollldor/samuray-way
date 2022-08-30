@@ -9,6 +9,8 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
+import {ProfileAPI} from "./components/Profile/ProfileAPI";
+import {ProfileContainer} from "./components/Profile/ProfileContainer";
 
 
 function App() {
@@ -19,7 +21,7 @@ function App() {
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
                     <Routes>
-                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/profile" element={<ProfileContainer/>}/>
                         <Route path="/messages" element={<DialogsContainer/>}/>
                         <Route path="/users" element={<UsersContainer/>}/>
                         <Route path="/news" element={<News/>}/>

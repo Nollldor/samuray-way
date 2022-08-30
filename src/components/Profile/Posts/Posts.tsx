@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Posts.module.css'
 import {Post} from "./Post/Post";
-import {StateType, StoreType} from "../../../redux/redux-store";
+import {StateType} from "../../../redux/redux-store";
 import {MyPostContainer} from "./MyPostContainer";
 import {useStore} from "react-redux";
 
