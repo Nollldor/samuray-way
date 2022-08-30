@@ -6,12 +6,12 @@ import {
     UpdateMessageBodyActionCreator
 } from "./dialogs-reducer";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unfollow,
     usersReducer
 } from "./users-reducer";
 
@@ -22,12 +22,12 @@ export type ActionsTypes =
     | ReturnType<typeof ChangeNewPostTextActionCreator>
     | ReturnType<typeof AddMessageActionCreator>
     | ReturnType<typeof UpdateMessageBodyActionCreator>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
