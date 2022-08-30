@@ -22,14 +22,16 @@ export type usersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 
 const initialState: usersPageType = {
     users: [],
     pageSize: 5,
-    totalUsersCount: 129,
-    currentPage: 1
+    totalUsersCount: 19,
+    currentPage: 1,
+    isFetching: false,
 }
 
 
@@ -58,6 +60,11 @@ export type setTotalUsersCountAT = {
     totalUsersCount: number
 }
 
+export type toggleIsFetchingAT = {
+    type: "TOGGLE-IS-FETCHING"
+    isFetching: boolean
+}
+
 export const followAC = (id: number): followAT => ({
     type: 'FOLLOW',
     id
@@ -83,6 +90,11 @@ export const setTotalUsersCountAC = (totalUsersCount: number): setTotalUsersCoun
     totalUsersCount
 })
 
+export const toggleIsFetchingAC = (isFetching: boolean): toggleIsFetchingAT => ({
+    type: "TOGGLE-IS-FETCHING",
+    isFetching
+})
+
 
 export const usersReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
@@ -96,6 +108,8 @@ export const usersReducer = (state = initialState, action: ActionsTypes) => {
             return {...state, currentPage: action.page}
         case "SET-TOTAL-USERS-COUNT":
             return {...state, totalUsersCount: action.totalUsersCount}
+        case "TOGGLE-IS-FETCHING":
+            return {...state, isFetching: action.isFetching}
         default:
             return state
     }

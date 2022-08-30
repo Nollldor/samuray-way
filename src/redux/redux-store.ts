@@ -5,7 +5,15 @@ import {
     dialogsReducer,
     UpdateMessageBodyActionCreator
 } from "./dialogs-reducer";
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC, usersReducer} from "./users-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    toggleIsFetchingAC,
+    unfollowAC,
+    usersReducer
+} from "./users-reducer";
 
 export type StoreType = ReturnType<typeof createStore>
 
@@ -19,6 +27,7 @@ export type ActionsTypes =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof toggleIsFetchingAC>
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
