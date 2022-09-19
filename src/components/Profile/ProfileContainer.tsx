@@ -13,4 +13,5 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => ({
     profile: state.profilePage.profile
 })
 
+// @ts-ignore
 export const ProfileContainer = connect(mapStateToProps, {setUserProfile})(ProfileAPI)

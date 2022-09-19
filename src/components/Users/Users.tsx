@@ -41,7 +41,7 @@ export const Users: FC<UsersPropsType> = (
                     return (
                         <div key={u.id}>
                             <span>
-                                <NavLink to={'/profile' + u.id}>
+                                <NavLink to={'/profile/' + u.id}>
                                     <img src={u.photos.small ? u.photos.small : userPhoto}
                                          className={styles.usersPhoto}/>
                                 </NavLink>
