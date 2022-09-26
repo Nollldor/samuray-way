@@ -11,13 +11,14 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileAPI} from "./components/Profile/ProfileAPI";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {HeaderContainerConnect} from "./components/Header/HeaderContainer";
 
 
 function App() {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header/>
+                <HeaderContainerConnect />
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
                     <Routes>
