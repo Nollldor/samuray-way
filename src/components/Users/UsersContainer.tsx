@@ -7,7 +7,8 @@ import {
     setTotalUsersCount,
     setUsers, toggleIsFetching,
     unfollow,
-    userType
+    userType,
+    toggleFetchingProgress
 } from "../../redux/users-reducer";
 import {UsersSubContainer} from "./UsersSubContainer";
 
@@ -17,6 +18,7 @@ type mapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    fetchingInProgress: number[]
 }
 
 const mapStateToProps = (state: StateType): mapStateToPropsType => ({
@@ -24,7 +26,8 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => ({
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    fetchingInProgress: state.usersPage.fetchingInProgress
 })
 
 
@@ -34,5 +37,6 @@ export const UsersContainer = connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching
+    toggleIsFetching,
+    toggleFetchingProgress
 })(UsersSubContainer)

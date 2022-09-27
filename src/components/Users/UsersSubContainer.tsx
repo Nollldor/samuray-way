@@ -10,12 +10,14 @@ type UsersPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    fetchingInProgress: number[]
     follow: (id: number) => void
     unfollow: (id: number) => void
     setUsers: (users: userType[]) => void
     setCurrentPage: (page: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFetchingProgress: (isFetching: boolean, uID: number) => void
 }
 
 export class UsersSubContainer extends React.Component<UsersPropsType> {
@@ -24,9 +26,9 @@ export class UsersSubContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(+data.totalCount)
+            this.props.toggleIsFetching(false)
+            this.props.setUsers(data.items)
+            this.props.setTotalUsersCount(+data.totalCount)
         })
     }
 
@@ -54,7 +56,8 @@ export class UsersSubContainer extends React.Component<UsersPropsType> {
                     onPageChanged={this.onPageChanged}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
-
+                    toggleFetchingProgress={this.props.toggleFetchingProgress}
+                    fetchingInProgress={this.props.fetchingInProgress}
                 />
             </>
 

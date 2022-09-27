@@ -13,7 +13,9 @@ type UsersPropsType = {
     follow: (id: number) => void
     unfollow: (id: number) => void
     onPageChanged: (page: number) => void
-    users: userType[]
+    users: userType[],
+    fetchingInProgress: number[]
+    toggleFetchingProgress: (isFetching: boolean, uID: number) => void
 }
 
 export const Users: FC<UsersPropsType> = (
@@ -24,7 +26,9 @@ export const Users: FC<UsersPropsType> = (
         follow,
         unfollow,
         onPageChanged,
-        users
+        users,
+        fetchingInProgress,
+        toggleFetchingProgress
     }) => {
     const pageCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []
@@ -49,19 +53,23 @@ export const Users: FC<UsersPropsType> = (
                                 </NavLink>
                             </span>
                             <span>
-                                {u.followed ? <button onClick={() => {
-                                        followAPI.follow(u.id).then(data => {
+                                {u.followed ? <button disabled={fetchingInProgress.some(uid => uid === u.id)} onClick={() => {
+                                        toggleFetchingProgress(true, u.id)
+                                        followAPI.unfollow(u.id).then(data => {
                                             if (data.resultCode === 0) {
                                                 unfollow(u.id)
                                             }
+                                            toggleFetchingProgress(false, u.id)
                                         })
                                     }}>Unfollow</button>
 
-                                    : <button onClick={() => {
+                                    : <button disabled={fetchingInProgress.some(uid => uid === u.id)} onClick={() => {
+                                        toggleFetchingProgress(true, u.id)
                                         followAPI.follow(u.id).then(data => {
                                             if (data.resultCode === 0) {
                                                 follow(u.id)
                                             }
+                                            toggleFetchingProgress(false, u.id)
                                         })
                                     }}>Follow</button>}
                             </span>
