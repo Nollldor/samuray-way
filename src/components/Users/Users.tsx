@@ -4,6 +4,7 @@ import userPhoto from "../../assets/img/small-user-avatar.png";
 import {userType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {followAPI} from "../../api/api";
 
 type UsersPropsType = {
     currentPage: number
@@ -49,37 +50,19 @@ export const Users: FC<UsersPropsType> = (
                             </span>
                             <span>
                                 {u.followed ? <button onClick={() => {
-                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                            {
-                                                withCredentials: true,
-                                                headers: {
-                                                    "API-KEY": "aa4d6d6d-ce89-48a6-9ff2-f1882bdbfab4"
-                                                }
-                                            },
-                                        ).then(response => {
-                                            if (response.data.resultCode === 0) {
+                                        followAPI.follow(u.id).then(data => {
+                                            if (data.resultCode === 0) {
                                                 unfollow(u.id)
                                             }
                                         })
-                                        unfollow(u.id)
-
                                     }}>Unfollow</button>
-                                    : <button onClick={() => {
 
-                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                            {},
-                                            {
-                                                withCredentials: true,
-                                                headers: {
-                                                    "API-KEY": "aa4d6d6d-ce89-48a6-9ff2-f1882bdbfab4"
-                                                }
-                                            }).then(response => {
-                                            if (response.data.resultCode === 0) {
+                                    : <button onClick={() => {
+                                        followAPI.follow(u.id).then(data => {
+                                            if (data.resultCode === 0) {
                                                 follow(u.id)
                                             }
                                         })
-
-
                                     }}>Follow</button>}
                             </span>
 

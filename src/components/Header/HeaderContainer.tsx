@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {setUserData} from "../../redux/auth-reducer";
 import {StateType} from "../../redux/redux-store";
+import {authAPI} from "../../api/api";
 
 type propsType = {
     isAuth: boolean,
@@ -13,10 +13,9 @@ type propsType = {
 
 export const HeaderContainer = (props: propsType) => {
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    const {id, email, login} = response.data.data
+        authAPI.authMe().then(data => {
+                if (data.resultCode === 0) {
+                    const {id, email, login} = data.data
                     props.setUserData(id, email, login)
                 }
             })

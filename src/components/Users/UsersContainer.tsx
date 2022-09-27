@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {DispatchType, StateType} from "../../redux/redux-store";
+import {StateType} from "../../redux/redux-store";
 import {
     follow,
     setCurrentPage,
@@ -9,7 +9,7 @@ import {
     unfollow,
     userType
 } from "../../redux/users-reducer";
-import {UsersAPI} from "./UsersAPI";
+import {UsersSubContainer} from "./UsersSubContainer";
 
 type mapStateToPropsType = {
     users: userType[],
@@ -35,4 +35,4 @@ export const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetching
-})(UsersAPI)
+})(UsersSubContainer)
