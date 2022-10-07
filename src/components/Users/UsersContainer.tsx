@@ -2,13 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 import {
-    follow,
+    followSuccess,
     setCurrentPage,
-    setTotalUsersCount,
-    setUsers, toggleIsFetching,
-    unfollow,
+    unfollowSuccess,
     userType,
-    toggleFetchingProgress
+    toggleFetchingProgress, getUsers, follow, unfollow
 } from "../../redux/users-reducer";
 import {UsersSubContainer} from "./UsersSubContainer";
 
@@ -32,11 +30,8 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => ({
 
 
 export const UsersContainer = connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
-    toggleFetchingProgress
+    getUsers,
+    follow,
+    unfollow
 })(UsersSubContainer)

@@ -3,19 +3,16 @@ import styles from "./users.module.css";
 import userPhoto from "../../assets/img/small-user-avatar.png";
 import {userType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {followAPI} from "../../api/api";
 
 type UsersPropsType = {
     currentPage: number
     pageSize: number
     totalUsersCount: number
-    follow: (id: number) => void
     unfollow: (id: number) => void
+    follow: (id: number) => void
     onPageChanged: (page: number) => void
     users: userType[],
     fetchingInProgress: number[]
-    toggleFetchingProgress: (isFetching: boolean, uID: number) => void
 }
 
 export const Users: FC<UsersPropsType> = (
@@ -28,7 +25,6 @@ export const Users: FC<UsersPropsType> = (
         onPageChanged,
         users,
         fetchingInProgress,
-        toggleFetchingProgress
     }) => {
     const pageCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []
@@ -53,25 +49,12 @@ export const Users: FC<UsersPropsType> = (
                                 </NavLink>
                             </span>
                             <span>
-                                {u.followed ? <button disabled={fetchingInProgress.some(uid => uid === u.id)} onClick={() => {
-                                        toggleFetchingProgress(true, u.id)
-                                        followAPI.unfollow(u.id).then(data => {
-                                            if (data.resultCode === 0) {
-                                                unfollow(u.id)
-                                            }
-                                            toggleFetchingProgress(false, u.id)
-                                        })
-                                    }}>Unfollow</button>
+                                {u.followed ?
+                                    <button disabled={fetchingInProgress.some(uid => uid === u.id)} onClick={() => {
+                                        unfollow(u.id)}}>Unfollow</button>
 
                                     : <button disabled={fetchingInProgress.some(uid => uid === u.id)} onClick={() => {
-                                        toggleFetchingProgress(true, u.id)
-                                        followAPI.follow(u.id).then(data => {
-                                            if (data.resultCode === 0) {
-                                                follow(u.id)
-                                            }
-                                            toggleFetchingProgress(false, u.id)
-                                        })
-                                    }}>Follow</button>}
+                                        follow(u.id)}}>Follow</button>}
                             </span>
 
                             <span>
