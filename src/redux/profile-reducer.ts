@@ -1,5 +1,6 @@
 import {AddMessageActionCreator, UpdateMessageBodyActionCreator} from "./dialogs-reducer";
 import {ActionsTypes} from "./redux-store";
+import {profileAPI} from "../api/api";
 
 type PostType = {
     messageText: string
@@ -95,6 +96,15 @@ export const profileReducer = (state = initialState, action: ActionsTypes) => {
             return {...state, profile: action.userProfile}
         default:
             return state
+    }
+}
+
+
+export const getProfileThunk = (userID: number) => {
+    return (dispatch: any) => {
+        profileAPI.getProfile(userID).then(data => {
+            dispatch(setUserProfile(data))
+        })
     }
 }
 
