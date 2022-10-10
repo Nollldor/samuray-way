@@ -6,12 +6,13 @@ import {getProfileThunk, ProfileType, setUserProfile} from "../../redux/profile-
 
 export type mapStateToPropsType = {
     profile: ProfileType
-
+    isAuth: boolean
 
 }
 
 const mapStateToProps = (state: StateType): mapStateToPropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 // @ts-ignore

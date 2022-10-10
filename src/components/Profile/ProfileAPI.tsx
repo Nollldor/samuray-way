@@ -1,12 +1,13 @@
 import React, {FC, useEffect} from 'react';
 import {Profile} from "./Profile";
 import {ProfileType} from "../../redux/profile-reducer";
-import {useParams,} from "react-router-dom";
+import {Navigate, useParams,} from "react-router-dom";
 
 export type ProfileAPIPropsType = {
     profile: ProfileType
     setUserProfile: (userProfile: ProfileType) => void
     getProfileThunk: (userId: number) => void
+    isAuth: boolean
 }
 
 export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
@@ -18,6 +19,9 @@ export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
         }
         props.getProfileThunk(+userId)
     }, [userId])
+
+    if(!props.isAuth) return <Navigate to={'/login'} />
+
     return <Profile {...props} profile={props.profile}/>
 
 }
