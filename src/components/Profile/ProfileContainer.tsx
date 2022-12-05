@@ -17,4 +17,4 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => ({
 })
 
 // @ts-ignore
-export const ProfileContainer = WithAuthRedirect(connect(mapStateToProps, {setUserProfile, getProfileThunk})(ProfileAPI))
+export const ProfileContainer = connect(mapStateToProps, {setUserProfile, getProfileThunk})(ProfileAPI)
