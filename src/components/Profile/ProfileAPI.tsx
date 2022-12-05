@@ -20,10 +20,7 @@ export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
         props.getProfileThunk(+userId)
     }, [userId])
 
-    if(!props.isAuth) return <Navigate to={'/login'} />
-
     return <Profile {...props} profile={props.profile}/>
-
 }
 
 

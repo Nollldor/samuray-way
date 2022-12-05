@@ -4,8 +4,7 @@ import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {dialogsPageType} from "../../redux/dialogs-reducer";
 import {Navigate} from 'react-router-dom'
-
-
+import {ProfileAPI} from "../Profile/ProfileAPI";
 
 
 type DialogsPropsType = {
@@ -34,7 +33,7 @@ export const Dialogs = (props: DialogsPropsType) => {
         props.UpdateMessageBody(e.currentTarget.value)
     }
 
-    if(!props.isAuth) return <Navigate to={'/login'} />
+    if (!props.isAuth) return <Navigate to={'/login'}/>
 
     return (
         <div className={s.dialogsWrapper}>

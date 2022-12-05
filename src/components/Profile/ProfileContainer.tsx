@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import {ProfileAPI} from "./ProfileAPI";
 import {StateType} from "../../redux/redux-store";
 import {getProfileThunk, ProfileType, setUserProfile} from "../../redux/profile-reducer";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 export type mapStateToPropsType = {
@@ -16,4 +17,4 @@ const mapStateToProps = (state: StateType): mapStateToPropsType => ({
 })
 
 // @ts-ignore
-export const ProfileContainer = connect(mapStateToProps, {setUserProfile, getProfileThunk})(ProfileAPI)
+export const ProfileContainer = WithAuthRedirect(connect(mapStateToProps, {setUserProfile, getProfileThunk})(ProfileAPI))
