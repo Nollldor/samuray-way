@@ -16,6 +16,7 @@ import {
 } from "./users-reducer";
 import {authReducer, setUserData} from "./auth-reducer";
 import thunk from "redux-thunk";
+import { reducer as formReducer } from 'redux-form'
 
 export type StoreType = ReturnType<typeof createStore>
 
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    form: formReducer
 })
 
 

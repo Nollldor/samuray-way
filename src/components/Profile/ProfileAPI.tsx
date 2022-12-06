@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {Profile} from "./Profile";
-import {getStatusThunk, ProfileType, updateStatusThunk} from "../../redux/profile-reducer";
-import {Navigate, useParams,} from "react-router-dom";
+import {ProfileType} from "../../redux/profile-reducer";
+import {useParams,} from "react-router-dom";
 
 export type ProfileAPIPropsType = {
     profile: ProfileType
