@@ -1,13 +1,16 @@
 import React, {FC, useEffect} from 'react';
 import {Profile} from "./Profile";
-import {ProfileType} from "../../redux/profile-reducer";
+import {getStatusThunk, ProfileType, updateStatusThunk} from "../../redux/profile-reducer";
 import {Navigate, useParams,} from "react-router-dom";
 
 export type ProfileAPIPropsType = {
     profile: ProfileType
     setUserProfile: (userProfile: ProfileType) => void
     getProfileThunk: (userId: number) => void
+    getStatusThunk: (userId: number) => void
+    updateStatusThunk: (status: string) => void
     isAuth: boolean
+    status: string
 }
 
 export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
@@ -15,12 +18,13 @@ export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
     useEffect(() => {
 
         if (!userId) {
-            userId = '2'
+            userId = '24923'
         }
         props.getProfileThunk(+userId)
+        props.getStatusThunk(+userId)
     }, [userId])
 
-    return <Profile {...props} profile={props.profile}/>
+    return <Profile {...props} profile={props.profile} status={props.status}  updateStatus={props.updateStatusThunk}/>
 }
 
 

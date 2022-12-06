@@ -5,9 +5,11 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: ProfileType
+    updateStatus: (status: string) => void
+    status: string
 }
 
-export const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
+export const ProfileInfo: FC<ProfileInfoPropsType> = ({profile,updateStatus,status}) => {
     return (
         <>
             {/* <div>
@@ -15,10 +17,10 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = ({profile}) => {
                     src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"/>
             </div>*/}
             <div className={s.userInfo}>
-                <div >
+                <div>
                     <img className={s.avatar} src={profile.photos.large} alt="user-avatar"/>
                 </div>
-                <ProfileStatus/>
+                <ProfileStatus updateStatus={updateStatus} status={status}/>
 
                 <div>Full Name: {profile.fullName}</div>
                 {profile.lookingForAJob && <div>Looking for a job: {profile.lookingForAJobDescription}</div>}

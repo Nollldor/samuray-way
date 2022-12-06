@@ -1,20 +1,31 @@
 import {connect} from "react-redux";
 import {ProfileAPI} from "./ProfileAPI";
 import {StateType} from "../../redux/redux-store";
-import {getProfileThunk, ProfileType, setUserProfile} from "../../redux/profile-reducer";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {
+    getProfileThunk,
+    getStatusThunk,
+    ProfileType,
+    setUserProfile,
+    updateStatusThunk
+} from "../../redux/profile-reducer";
 
 
 export type mapStateToPropsType = {
     profile: ProfileType
     isAuth: boolean
-
+    status: string
 }
 
 const mapStateToProps = (state: StateType): mapStateToPropsType => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status,
     isAuth: state.auth.isAuth
 })
 
 // @ts-ignore
-export const ProfileContainer = connect(mapStateToProps, {setUserProfile, getProfileThunk})(ProfileAPI)
+export const ProfileContainer = connect(mapStateToProps, {
+    setUserProfile,
+    getProfileThunk,
+    getStatusThunk,
+    updateStatusThunk
+})(ProfileAPI)

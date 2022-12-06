@@ -35,6 +35,7 @@ export type ProfileType = {
 export type profilePageType = {
     posts: PostsDatatype
     NewPostText: string
+    status: string
     profile: ProfileType
 }
 
@@ -44,6 +45,7 @@ const initialState: profilePageType = {
         {messageText: "It's second message!", likesNumber: 4, id: 1},
     ],
     NewPostText: 'it-kamasutra',
+    status: '',
     profile: {
         userId: 0,
         lookingForAJob: false,
@@ -81,6 +83,11 @@ export const setUserProfile = (userProfile: ProfileType) => ({
     userProfile
 } as const)
 
+export const setStatus = (status: string) => ({
+    type: "SET-STATUS",
+    status
+} as const)
+
 
 export const profileReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
@@ -92,6 +99,8 @@ export const profileReducer = (state = initialState, action: ActionsTypes) => {
             }
         case 'CHANGE-NEW-POST-TEXT':
             return {...state, NewPostText: action.text}
+        case 'SET-STATUS':
+            return {...state, status: action.status}
         case 'SET-USER-PROFILE':
             return {...state, profile: action.userProfile}
         default:
@@ -104,6 +113,23 @@ export const getProfileThunk = (userID: number) => {
     return (dispatch: any) => {
         profileAPI.getProfile(userID).then(data => {
             dispatch(setUserProfile(data))
+        })
+    }
+}
+
+export const getStatusThunk = (userID: number) => {
+    return (dispatch: any) => {
+        profileAPI.getStatus(userID).then(data => {
+            dispatch(setStatus(data))
+        })
+    }
+}
+
+export const updateStatusThunk = (status: string) => {
+    return (dispatch: any) => {
+        profileAPI.updateStatus(status).then(data => {
+            data.resultCode === 0 &&
+            dispatch(setStatus(status))
         })
     }
 }

@@ -1,5 +1,5 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
-import {AddPost, ChangeNewPostText, profileReducer, setUserProfile} from "./profile-reducer";
+import {AddPost, ChangeNewPostText, profileReducer, setStatus, setUserProfile} from "./profile-reducer";
 import {
     AddMessageActionCreator,
     dialogsReducer,
@@ -33,6 +33,7 @@ export type ActionsTypes =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserData>
     | ReturnType<typeof toggleFetchingProgress>
+    | ReturnType<typeof setStatus>
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
