@@ -10,7 +10,7 @@ export type ProfileAPIPropsType = {
     getStatusThunk: (userId: number) => void
     updateStatusThunk: (status: string) => void
     isAuth: boolean
-    status: string
+    profileStatus: string
 }
 
 export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
@@ -24,7 +24,7 @@ export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
         props.getStatusThunk(+userId)
     }, [userId])
 
-    return <Profile {...props} profile={props.profile} status={props.status}  updateStatus={props.updateStatusThunk}/>
+    return <Profile {...props} profile={props.profile} status={props.profileStatus} updateStatus={props.updateStatusThunk}/>
 }
 
 

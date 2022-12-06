@@ -13,12 +13,12 @@ import {
 export type mapStateToPropsType = {
     profile: ProfileType
     isAuth: boolean
-    status: string
+    profileStatus: string
 }
 
 const mapStateToProps = (state: StateType): mapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status,
+    profileStatus: state.profilePage.status,
     isAuth: state.auth.isAuth
 })
 
