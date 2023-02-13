@@ -1,8 +1,7 @@
-import {AddMessageActionCreator, UpdateMessageBodyActionCreator} from "./dialogs-reducer";
 import {ActionsTypes} from "./redux-store";
 import {profileAPI} from "../api/api";
 
-type PostType = {
+export type PostType = {
     messageText: string
     likesNumber: number
     id: number
@@ -34,7 +33,6 @@ export type ProfileType = {
 
 export type profilePageType = {
     posts: PostsDatatype
-    NewPostText: string
     status: string
     profile: ProfileType
 }
@@ -44,7 +42,6 @@ const initialState: profilePageType = {
         {messageText: "It's my first message", likesNumber: 16, id: 0},
         {messageText: "It's second message!", likesNumber: 4, id: 1},
     ],
-    NewPostText: 'it-kamasutra',
     status: '',
     profile: {
         userId: 0,
@@ -69,13 +66,9 @@ const initialState: profilePageType = {
     }
 }
 
-export const AddPost = () => ({
-    type: 'ADD-POST'
-} as const)
-
-export const ChangeNewPostText = (text: string) => ({
-    type: "CHANGE-NEW-POST-TEXT",
-    text: text
+export const AddPost = (newPostText: string) => ({
+    type: 'ADD-POST',
+    newPostText
 } as const)
 
 export const setUserProfile = (userProfile: ProfileType) => ({
@@ -92,13 +85,13 @@ export const setStatus = (status: string) => ({
 export const profileReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case 'ADD-POST':
-            return {
+            const newState = {
                 ...state,
-                posts: [...state.posts, {likesNumber: 0, messageText: state.NewPostText, id: state.posts.length}],
-                NewPostText: ""
+                posts: [...state.posts,
+                    {messageText: action.newPostText, likesNumber: 0, id: state.posts.length}]
             }
-        case 'CHANGE-NEW-POST-TEXT':
-            return {...state, NewPostText: action.text}
+            console.log(newState)
+            return newState
         case 'SET-STATUS':
             return {...state, status: action.status}
         case 'SET-USER-PROFILE':

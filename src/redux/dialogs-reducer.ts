@@ -15,7 +15,6 @@ export type DialogsDatatype = FriendType[]
 
 export type dialogsPageType = {
     messages: MessagesDatatype
-    NewMessageBody: string
     dialogs: DialogsDatatype
 }
 
@@ -25,7 +24,6 @@ const initialState: dialogsPageType = {
         {message: "hi!", id: 2},
         {message: "How are you&", id: 3},
     ],
-    NewMessageBody: "",
     dialogs: [
         {name: "Dima", id: 1},
         {name: "Valera", id: 2},
@@ -35,23 +33,17 @@ const initialState: dialogsPageType = {
 }
 
 
-export const UpdateMessageBodyActionCreator = (text: string) => ({
-    type: 'UPDATE-MESSAGE-BODY',
-    body: text
-} as const)
-
-export const AddMessageActionCreator = () => ({
+export const AddMessageActionCreator = (newMessageBody: string) => ({
     type: "ADD-MESSAGE",
+    newMessageBody
 } as const)
 
 export const dialogsReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
-        case 'UPDATE-MESSAGE-BODY':
-            return {...state, NewMessageBody: action.body}
         case 'ADD-MESSAGE':
             return {
                 ...state, messages: [...state.messages, {
-                    message: state.NewMessageBody,
+                    message: action.newMessageBody,
                     id: (state.messages.length + 1)
                 }]
             }
