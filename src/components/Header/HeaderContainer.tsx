@@ -8,7 +8,7 @@ import {StateType} from "../../redux/redux-store";
 type propsType = {
     isAuth: boolean,
     login: string
-    setUserData: (id: number, email: string, login: string) => void
+    setUserData: (id: number, email: string, login: string, isAuth: boolean) => void
     authMeThunk: () => void
 }
 
