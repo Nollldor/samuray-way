@@ -6,6 +6,8 @@ import {dialogsPageType} from "../../redux/dialogs-reducer";
 import {Navigate} from 'react-router-dom'
 import {ProfileAPI} from "../Profile/ProfileAPI";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Textarea} from "../common/FormControls/FormControls";
+import {maxLengthCreator, requiredField} from "../../utils/validators/validators";
 
 
 type DialogsPropsType = {
@@ -14,7 +16,6 @@ type DialogsPropsType = {
     UpdateMessageBody: (text: string) => void
     isAuth: boolean
 }
-
 
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -47,13 +48,14 @@ export const Dialogs = (props: DialogsPropsType) => {
 type ValuesType = {
     newMessageBody: string
 }
-
+const maxLength50 = maxLengthCreator(50)
 export const AddMessageForm: FC<InjectedFormProps<ValuesType>> = ({...props}) => {
 
 
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field component={'textarea'} name={'newMessageBody'} placeholder={'Enter your message'}/>
+            <Field component={Textarea} name={'newMessageBody'} placeholder={'Enter your message'}
+                   validate={[requiredField, maxLength50]}/>
         </div>
         <div>
             <button>Отправить</button>
