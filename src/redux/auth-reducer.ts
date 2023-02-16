@@ -46,7 +46,7 @@ export const authReducer = (state = initialState, action: ActionsTypes) => {
 
 export const authMeThunk = () => {
     return (dispatch: DispatchType) => {
-        authAPI.authMe().then(data => {
+        return authAPI.authMe().then(data => {
             if (data.resultCode === 0) {
                 const {id, email, login} = data.data
                 dispatch(setUserData(id, email, login, true))

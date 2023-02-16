@@ -8,17 +8,12 @@ import {StateType} from "../../redux/redux-store";
 type propsType = {
     isAuth: boolean,
     login: string
-    setUserData: (id: number, email: string, login: string, isAuth: boolean) => void
-    authMeThunk: () => void
 }
 
 export const HeaderContainer = (props: propsType) => {
-    useEffect(() => {
-        props.authMeThunk()
-    })
+
     return (
         <Header isAuth={props.isAuth} login={props.login}/>
-
     );
 }
 
@@ -27,4 +22,4 @@ const mapStateToProps = (state: StateType) => ({
     login: state.auth.login
 })
 
-export const HeaderContainerConnect = connect(mapStateToProps, {setUserData, authMeThunk})(HeaderContainer)
+export const HeaderContainerConnect = connect(mapStateToProps, {})(HeaderContainer)
