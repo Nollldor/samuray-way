@@ -14,12 +14,14 @@ export type mapStateToPropsType = {
     profile: ProfileType
     isAuth: boolean
     profileStatus: string
+    authorisedUserID: number
 }
 
 const mapStateToProps = (state: StateType): mapStateToPropsType => ({
     profile: state.profilePage.profile,
     profileStatus: state.profilePage.status,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    authorisedUserID: state.auth.id
 })
 
 // @ts-ignore

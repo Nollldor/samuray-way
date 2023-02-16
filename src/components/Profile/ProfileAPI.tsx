@@ -11,6 +11,7 @@ export type ProfileAPIPropsType = {
     updateStatusThunk: (status: string) => void
     isAuth: boolean
     profileStatus: string
+    authorisedUserID: number
 }
 
 export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
@@ -18,7 +19,7 @@ export const ProfileAPI: FC<ProfileAPIPropsType> = (props) => {
     useEffect(() => {
 
         if (!userId) {
-            userId = '24923'
+            userId = props.authorisedUserID.toString()
         }
         props.getProfileThunk(+userId)
         props.getStatusThunk(+userId)

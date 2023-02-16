@@ -1,5 +1,6 @@
 import {ActionsTypes, DispatchType} from "./redux-store";
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 export type userDataType = {
     id: number,
@@ -48,7 +49,7 @@ export const authMeThunk = () => {
         authAPI.authMe().then(data => {
             if (data.resultCode === 0) {
                 const {id, email, login} = data.data
-                dispatch(setUserData(id, email, login,true))
+                dispatch(setUserData(id, email, login, true))
             }
         })
     }
@@ -59,8 +60,9 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean)
         authAPI.login(email, password, rememberMe).then(data => {
             if (data.resultCode === 0) {
                 dispatch(authMeThunk())
-            }else{
-                alert("not login")
+            } else {
+                const errorMessage = (data.messages && data.messages.length > 0) ? data.messages[0] : "some error"
+                    dispatch(stopSubmit('login', {_error: errorMessage}))
             }
         })
     }
@@ -70,8 +72,8 @@ export const logoutThunk = () => {
     return (dispatch: any) => {
         authAPI.logout().then(data => {
             if (data.resultCode === 0) {
-                dispatch(setUserData(0,"" , "",false))
-            }else{
+                dispatch(setUserData(0, "", "", false))
+            } else {
                 alert("not logout")
             }
         })
