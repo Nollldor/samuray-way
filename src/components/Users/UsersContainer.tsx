@@ -6,9 +6,16 @@ import {
     setCurrentPage,
     unfollowSuccess,
     userType,
-    toggleFetchingProgress, getUsers, follow, unfollow
+    toggleFetchingProgress, getUsersTC, follow, unfollow
 } from "../../redux/users-reducer";
 import {UsersSubContainer} from "./UsersSubContainer";
+import {
+    getCurrentPage, getFetchingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/Selectors/Users-selectors";
 
 type mapStateToPropsType = {
     users: userType[],
@@ -20,18 +27,18 @@ type mapStateToPropsType = {
 }
 
 const mapStateToProps = (state: StateType): mapStateToPropsType => ({
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    fetchingInProgress: state.usersPage.fetchingInProgress
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount:getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    fetchingInProgress: getFetchingInProgress(state)
 })
 
 
 export const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
-    getUsers,
+    getUsers: getUsersTC,
     follow,
     unfollow
 })(UsersSubContainer)
