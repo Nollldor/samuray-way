@@ -1,25 +1,13 @@
-import {StateType} from "../redux-store";
+import {usersPageType} from "../users-reducer";
 
-export const getUsers = (state: StateType) => {
-    return state.usersPage.users
-}
+export const getUsers = (UsersPageData: usersPageType) => UsersPageData.users
 
-export const getPageSize = (state: StateType) => {
-    return state.usersPage.pageSize
-}
+export const getPageSize = (UsersPageData: usersPageType) => UsersPageData.pageSize
 
-export const getTotalUsersCount = (state: StateType) => {
-    return state.usersPage.totalUsersCount
-}
+export const getTotalUsersCount = (UsersPageData: usersPageType) => UsersPageData.totalUsersCount
 
-export const getCurrentPage= (state: StateType) => {
-    return state.usersPage.currentPage
-}
+export const getCurrentPage = (UsersPageData: usersPageType) => UsersPageData.currentPage
 
-export const getIsFetching = (state: StateType) => {
-    return state.usersPage.isFetching
-}
+export const getIsFetching = (UsersPageData: usersPageType) => UsersPageData.isFetching
 
-export const getFetchingInProgress = (state: StateType) => {
-    return state.usersPage.fetchingInProgress
-}
+export const getFetchingInProgress = (UsersPageData: usersPageType) => UsersPageData.fetchingInProgress

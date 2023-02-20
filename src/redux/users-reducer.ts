@@ -149,7 +149,7 @@ export const getUsersTC = (page: number, pageSize: number) => {
     }
 }
 
-export const follow = (uID: number) => {
+export const followTC = (uID: number) => {
     return (dispatch: DispatchType) => {
         dispatch(toggleFetchingProgress(true, uID))
         usersAPI.follow(uID).then(data => {
@@ -161,7 +161,7 @@ export const follow = (uID: number) => {
     }
 }
 
-export const unfollow = (uID: number) => {
+export const unfollowTC = (uID: number) => {
     return (dispatch: DispatchType) => {
         dispatch(toggleFetchingProgress(true, uID))
         usersAPI.unfollow(uID).then(data => {

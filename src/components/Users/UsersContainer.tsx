@@ -1,14 +1,9 @@
-import React from "react";
-import {connect} from "react-redux";
+import React, {FC, useEffect} from "react";
+import {followTC, getUsersTC, setCurrentPage, unfollowTC, usersPageType, userType} from "../../redux/users-reducer";
+import {Users} from "./Users";
+import {Preloader} from "../common/Preloader/Preloader";
+import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../redux/redux-store";
-import {
-    followSuccess,
-    setCurrentPage,
-    unfollowSuccess,
-    userType,
-    toggleFetchingProgress, getUsersTC, follow, unfollow
-} from "../../redux/users-reducer";
-import {UsersSubContainer} from "./UsersSubContainer";
 import {
     getCurrentPage, getFetchingInProgress,
     getIsFetching,
@@ -17,28 +12,47 @@ import {
     getUsers
 } from "../../redux/Selectors/Users-selectors";
 
-type mapStateToPropsType = {
-    users: userType[],
-    pageSize: number,
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    fetchingInProgress: number[]
+type UsersPropsType = {
+
 }
 
-const mapStateToProps = (state: StateType): mapStateToPropsType => ({
-    users: getUsers(state),
-    pageSize: getPageSize(state),
-    totalUsersCount:getTotalUsersCount(state),
-    currentPage: getCurrentPage(state),
-    isFetching: getIsFetching(state),
-    fetchingInProgress: getFetchingInProgress(state)
-})
+export const UsersContainer: FC<UsersPropsType> = () => {
+
+    const UserPageData = useSelector<StateType, usersPageType>(state => state.usersPage)
+    const dispatch = useDispatch()
+
+    const users: userType[] = getUsers(UserPageData)
+    const pageSize: number = getPageSize(UserPageData)
+    const totalUsersCount: number = getTotalUsersCount(UserPageData)
+    const currentPage: number = getCurrentPage(UserPageData)
+    const isFetching: boolean = getIsFetching(UserPageData)
+    const fetchingInProgress: number[] = getFetchingInProgress(UserPageData)
 
 
-export const UsersContainer = connect(mapStateToProps, {
-    setCurrentPage,
-    getUsers: getUsersTC,
-    follow,
-    unfollow
-})(UsersSubContainer)
+
+    useEffect(() => {
+        dispatch(getUsersTC(currentPage, pageSize))
+    }, [])
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(getUsersTC(pageNumber, pageSize))
+        dispatch(setCurrentPage(pageNumber))
+    }
+
+    return (
+        <>
+            {isFetching && <Preloader/>}
+            <Users
+                users={users}
+                pageSize={pageSize}
+                totalUsersCount={totalUsersCount}
+                currentPage={currentPage}
+                onPageChanged={onPageChanged}
+                follow={followTC}
+                unfollow={unfollowTC}
+                fetchingInProgress={fetchingInProgress}
+            />
+        </>
+
+    )
+}
