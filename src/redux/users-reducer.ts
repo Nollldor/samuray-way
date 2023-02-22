@@ -1,4 +1,4 @@
-import {ActionsTypes, DispatchType} from "./redux-store";
+import {ActionsTypes, AppThunk, DispatchType} from "./redux-store";
 import {usersAPI} from "../api/api";
 
 export type locationType = {
@@ -137,8 +137,8 @@ export const usersReducer = (state = initialState, action: ActionsTypes) => {
     }
 }
 
-export const getUsersTC = (page: number, pageSize: number) => {
-    return (dispatch: DispatchType) => {
+export const getUsersTC = (page: number, pageSize: number): AppThunk => {
+    return (dispatch) => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
         usersAPI.getUsers(page, pageSize).then(data => {
@@ -149,8 +149,8 @@ export const getUsersTC = (page: number, pageSize: number) => {
     }
 }
 
-export const followTC = (uID: number) => {
-    return (dispatch: DispatchType) => {
+export const followTC = (uID: number): AppThunk => {
+    return (dispatch) => {
         dispatch(toggleFetchingProgress(true, uID))
         usersAPI.follow(uID).then(data => {
             if (data.resultCode === 0) {
@@ -161,8 +161,8 @@ export const followTC = (uID: number) => {
     }
 }
 
-export const unfollowTC = (uID: number) => {
-    return (dispatch: DispatchType) => {
+export const unfollowTC = (uID: number): AppThunk => {
+    return (dispatch) => {
         dispatch(toggleFetchingProgress(true, uID))
         usersAPI.unfollow(uID).then(data => {
             if (data.resultCode === 0) {

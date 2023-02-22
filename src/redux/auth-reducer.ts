@@ -1,4 +1,4 @@
-import {ActionsTypes, DispatchType} from "./redux-store";
+import {ActionsTypes, AppThunk, DispatchType} from "./redux-store";
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
@@ -44,8 +44,8 @@ export const authReducer = (state = initialState, action: ActionsTypes) => {
 }
 
 
-export const authMeThunk = () => {
-    return (dispatch: DispatchType) => {
+export const authMeThunk = (): AppThunk => {
+    return (dispatch) => {
         return authAPI.authMe().then(data => {
             if (data.resultCode === 0) {
                 const {id, email, login} = data.data
@@ -55,8 +55,8 @@ export const authMeThunk = () => {
     }
 }
 
-export const loginThunk = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: any) => {
+export const loginThunk = (email: string, password: string, rememberMe: boolean): AppThunk => {
+    return (dispatch) => {
         authAPI.login(email, password, rememberMe).then(data => {
             if (data.resultCode === 0) {
                 dispatch(authMeThunk())
@@ -68,8 +68,8 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean)
     }
 }
 
-export const logoutThunk = () => {
-    return (dispatch: any) => {
+export const logoutThunk = (): AppThunk => {
+    return (dispatch) => {
         authAPI.logout().then(data => {
             if (data.resultCode === 0) {
                 dispatch(setUserData(0, "", "", false))

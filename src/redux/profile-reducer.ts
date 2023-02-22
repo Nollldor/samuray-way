@@ -1,4 +1,4 @@
-import {ActionsTypes, DispatchType} from "./redux-store";
+import {ActionsTypes, AppThunk, DispatchType} from "./redux-store";
 import {profileAPI} from "../api/api";
 
 export type PostType = {
@@ -102,24 +102,24 @@ export const profileReducer = (state = initialState, action: ActionsTypes) => {
 }
 
 
-export const getProfileThunk = (userID: number) => {
-    return (dispatch: DispatchType) => {
+export const getProfileThunk = (userID: number): AppThunk => {
+    return (dispatch) => {
         profileAPI.getProfile(userID).then(data => {
             dispatch(setUserProfile(data))
         })
     }
 }
 
-export const getStatusThunk = (userID: number) => {
-    return (dispatch: DispatchType) => {
+export const getStatusThunk = (userID: number): AppThunk => {
+    return (dispatch) => {
         profileAPI.getStatus(userID).then(data => {
             dispatch(setStatus(data))
         })
     }
 }
 
-export const updateStatusThunk = (status: string) => {
-    return (dispatch: DispatchType) => {
+export const updateStatusThunk = (status: string): AppThunk => {
+    return (dispatch) => {
         profileAPI.updateStatus(status).then(data => {
             data.resultCode === 0 &&
             dispatch(setStatus(status))

@@ -1,4 +1,4 @@
-import {createStore, combineReducers, applyMiddleware} from "redux";
+import {createStore, combineReducers, applyMiddleware, AnyAction} from "redux";
 import {AddPost, profileReducer, setStatus, setUserProfile} from "./profile-reducer";
 import {
     AddMessageActionCreator,
@@ -14,7 +14,7 @@ import {
     usersReducer
 } from "./users-reducer";
 import {authReducer, setUserData} from "./auth-reducer";
-import thunk from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import {appReducer, setInitializedAC} from "./app-reducer";
 
@@ -47,7 +47,8 @@ const rootReducer = combineReducers({
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
 
-
 export type StateType = ReturnType<typeof store.getState>
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, StateType, unknown, AnyAction>
 
 export type DispatchType = typeof store.dispatch
