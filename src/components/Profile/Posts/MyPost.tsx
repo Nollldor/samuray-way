@@ -8,17 +8,25 @@ type MyPostPropsType = {
 }
 
 
-export const MyPost = (props: MyPostPropsType) => {
-    const addPost = (values: AddNewPostDataType) => {
-        props.addPost(values.newPostText)
-    }
+export class MyPost extends React.PureComponent<MyPostPropsType> {
 
-    return (
-        <div>
-            <h3>My posts</h3>
-            <AddNewPostReduxForm onSubmit={addPost}/>
-        </div>
-    )
+    //Pure Component делает это автоматически
+    /*shouldComponentUpdate(nextProps: Readonly<MyPostPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
+        return nextProps !== this.props || nextState != this.state
+    }*/
+
+    render() {
+        const addPost = (values: AddNewPostDataType) => {
+            this.props.addPost(values.newPostText)
+        }
+
+        return (
+            <div>
+                <h3>My posts</h3>
+                <AddNewPostReduxForm onSubmit={addPost}/>
+            </div>
+        )
+    }
 }
 
 type AddNewPostDataType = {
