@@ -151,6 +151,7 @@ const followUnfollowFlow = async (dispatch: DispatchType,
                                   uID: number,
                                   apiMethod: (uID: number) => Promise<FollowResponseType>,
                                   actionCreator: (uID: number) => followAT | unfollowAT) => {
+
     dispatch(toggleFetchingProgress(true, uID))
     let data = await apiMethod(uID)
     if (data.resultCode === 0) {
@@ -159,16 +160,11 @@ const followUnfollowFlow = async (dispatch: DispatchType,
     dispatch(toggleFetchingProgress(false, uID))
 }
 
-export const followTC = (uID: number): AppThunk => (async (dispatch) => {
-    const apiMethod = usersAPI.follow.bind(usersAPI)
-    const actionCreator = followSuccess
 
-    followUnfollowFlow(dispatch, uID, apiMethod, actionCreator)
+export const followTC = (uID: number): AppThunk => ((dispatch) => {
+    followUnfollowFlow(dispatch, uID, usersAPI.follow.bind(usersAPI), followSuccess)
 })
 
-export const unfollowTC = (uID: number): AppThunk => (async (dispatch) => {
-    const apiMethod = usersAPI.unfollow.bind(usersAPI)
-    const actionCreator = unfollowSuccess
-
-    followUnfollowFlow(dispatch, uID, apiMethod, actionCreator)
+export const unfollowTC = (uID: number): AppThunk => ((dispatch) => {
+    followUnfollowFlow(dispatch, uID, usersAPI.unfollow.bind(usersAPI), unfollowSuccess)
 })

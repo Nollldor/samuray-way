@@ -1,8 +1,9 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import styles from "./users.module.css";
 import userPhoto from "../../assets/img/small-user-avatar.png";
 import {userType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 type UsersPropsType = {
     currentPage: number
@@ -26,6 +27,7 @@ export const Users: FC<UsersPropsType> = (
         users,
         fetchingInProgress,
     }) => {
+    const dispatch = useDispatch()
     const pageCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []
     for (let i = 1; i <= pageCount; i++) {
@@ -51,10 +53,12 @@ export const Users: FC<UsersPropsType> = (
                             <span>
                                 {u.followed ?
                                     <button disabled={fetchingInProgress.some(uid => uid === u.id)} onClick={() => {
-                                        unfollow(u.id)}}>Unfollow</button>
+                                        dispatch(unfollow(u.id))
+                                    }}>Unfollow</button>
 
                                     : <button disabled={fetchingInProgress.some(uid => uid === u.id)} onClick={() => {
-                                        follow(u.id)}}>Follow</button>}
+                                        dispatch(follow(u.id))
+                                    }}>Follow</button>}
                             </span>
 
                             <span>
