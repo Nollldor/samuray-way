@@ -1,5 +1,5 @@
 import {ActionsTypes, AppThunk, DispatchType} from "./redux-store";
-import {usersAPI} from "../api/api";
+import {FollowResponseType, usersAPI} from "../api/api";
 
 export type locationType = {
     country: string
@@ -147,20 +147,28 @@ export const getUsersTC = (page: number, pageSize: number): AppThunk => (async (
 
 })
 
-export const followTC = (uID: number): AppThunk => (async (dispatch) => {
+const followUnfollowFlow = async (dispatch: DispatchType,
+                                  uID: number,
+                                  apiMethod: (uID: number) => Promise<FollowResponseType>,
+                                  actionCreator: (uID: number) => followAT | unfollowAT) => {
     dispatch(toggleFetchingProgress(true, uID))
-    let data = await usersAPI.follow(uID)
+    let data = await apiMethod(uID)
     if (data.resultCode === 0) {
-        dispatch(followSuccess(uID))
+        dispatch(actionCreator(uID))
     }
     dispatch(toggleFetchingProgress(false, uID))
+}
+
+export const followTC = (uID: number): AppThunk => (async (dispatch) => {
+    const apiMethod = usersAPI.follow.bind(usersAPI)
+    const actionCreator = followSuccess
+
+    followUnfollowFlow(dispatch, uID, apiMethod, actionCreator)
 })
 
 export const unfollowTC = (uID: number): AppThunk => (async (dispatch) => {
-    dispatch(toggleFetchingProgress(true, uID))
-    let data = await usersAPI.unfollow(uID)
-    if (data.resultCode === 0) {
-        dispatch(unfollowSuccess(uID))
-    }
-    dispatch(toggleFetchingProgress(false, uID))
+    const apiMethod = usersAPI.unfollow.bind(usersAPI)
+    const actionCreator = unfollowSuccess
+
+    followUnfollowFlow(dispatch, uID, apiMethod, actionCreator)
 })

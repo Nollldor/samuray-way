@@ -16,13 +16,13 @@ export const usersAPI = {
             })
     },
     follow(uID: number) {
-        return instance.post(`follow/${uID}`).then(response => {
+        return instance.post<FollowResponseType>(`follow/${uID}`).then(response => {
             return response.data
         })
     },
 
     unfollow(uID: number) {
-        return instance.delete(`follow/${uID}`).then(response => {
+        return instance.delete<FollowResponseType>(`follow/${uID}`).then(response => {
             return response.data
         })
     }
@@ -62,4 +62,10 @@ export const profileAPI = {
             return response.data
         })
     },
+}
+
+export type FollowResponseType = {
+    resultCode: number,
+    messages: Array<string>[]
+    data: {}
 }
