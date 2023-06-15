@@ -1,4 +1,4 @@
-import {AddPost, profilePageType, profileReducer} from "./profile-reducer";
+import {addPost, deletePost, profilePageType, profileReducer} from "./profile-reducer";
 
 let initialState: profilePageType
 
@@ -34,14 +34,20 @@ beforeEach(() => {
 })
 
 it('new post should be added', () => {
-    let action = AddPost("it-react")
+    let action = addPost("it-react")
     let newState = profileReducer(initialState, action)
     expect(newState.posts.length).toBe(3)
 })
 
 it('new post should be correct', () => {
-    let action = AddPost("it-react")
+    let action = addPost("it-react")
     let newState = profileReducer(initialState, action)
     expect(newState.posts[2].messageText).toBe("it-react")
+})
+
+it('after deleted length of posts should be decrement', () => {
+    let action = deletePost(1)
+    let newState = profileReducer(initialState, action)
+    expect(newState.posts.length).toBe(1)
 })
 
