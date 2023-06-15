@@ -18,13 +18,13 @@ const initialState: userDataType = {
 }
 
 export type setUserDataAT = {
-    type: 'SET-USER-DATA'
+    type: 'auth/SET-USER-DATA'
     data: userDataType
 }
 
 export const setUserData = (id: number, email: string, login: string, isAuth: boolean): setUserDataAT => ({
 
-    type: 'SET-USER-DATA',
+    type: 'auth/SET-USER-DATA',
     data: {
         id,
         email,
@@ -35,9 +35,8 @@ export const setUserData = (id: number, email: string, login: string, isAuth: bo
 
 export const authReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
-        case "SET-USER-DATA":
+        case "auth/SET-USER-DATA":
             return {...state, ...action.data}
-
         default:
             return state
     }
@@ -45,37 +44,34 @@ export const authReducer = (state = initialState, action: ActionsTypes) => {
 
 
 export const authMeThunk = (): AppThunk => {
-    return (dispatch) => {
-        return authAPI.authMe().then(data => {
-            if (data.resultCode === 0) {
-                const {id, email, login} = data.data
-                dispatch(setUserData(id, email, login, true))
-            }
-        })
+    return async (dispatch) => {
+        let data = await authAPI.authMe()
+        if (data.resultCode === 0) {
+            const {id, email, login} = data.data
+            dispatch(setUserData(id, email, login, true))
+        }
     }
 }
 
 export const loginThunk = (email: string, password: string, rememberMe: boolean): AppThunk => {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(authMeThunk())
-            } else {
-                const errorMessage = (data.messages && data.messages.length > 0) ? data.messages[0] : "some error"
-                    dispatch(stopSubmit('login', {_error: errorMessage}))
-            }
-        })
+    return async (dispatch) => {
+        let data = await authAPI.login(email, password, rememberMe)
+        if (data.resultCode === 0) {
+            dispatch(authMeThunk())
+        } else {
+            const errorMessage = (data.messages && data.messages.length > 0) ? data.messages[0] : "some error"
+            dispatch(stopSubmit('login', {_error: errorMessage}))
+        }
     }
 }
 
 export const logoutThunk = (): AppThunk => {
-    return (dispatch) => {
-        authAPI.logout().then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserData(0, "", "", false))
-            } else {
-                alert("not logout")
-            }
-        })
+    return async (dispatch) => {
+        let data = await authAPI.logout()
+        if (data.resultCode === 0) {
+            dispatch(setUserData(0, "", "", false))
+        } else {
+            alert("not logout")
+        }
     }
 }
