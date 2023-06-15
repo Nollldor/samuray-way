@@ -137,38 +137,30 @@ export const usersReducer = (state = initialState, action: ActionsTypes) => {
     }
 }
 
-export const getUsersTC = (page: number, pageSize: number): AppThunk => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true))
-        dispatch(setCurrentPage(page))
-        usersAPI.getUsers(page, pageSize).then(data => {
-            dispatch(toggleIsFetching(false))
-            dispatch(setUsers(data.items))
-            dispatch(setTotalUsersCount(+data.totalCount))
-        })
-    }
-}
+export const getUsersTC = (page: number, pageSize: number): AppThunk => (async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    dispatch(setCurrentPage(page))
+    let data = await usersAPI.getUsers(page, pageSize)
+    dispatch(toggleIsFetching(false))
+    dispatch(setUsers(data.items))
+    dispatch(setTotalUsersCount(+data.totalCount))
 
-export const followTC = (uID: number): AppThunk => {
-    return (dispatch) => {
-        dispatch(toggleFetchingProgress(true, uID))
-        usersAPI.follow(uID).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(followSuccess(uID))
-            }
-            dispatch(toggleFetchingProgress(false, uID))
-        })
-    }
-}
+})
 
-export const unfollowTC = (uID: number): AppThunk => {
-    return (dispatch) => {
-        dispatch(toggleFetchingProgress(true, uID))
-        usersAPI.unfollow(uID).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(unfollowSuccess(uID))
-            }
-            dispatch(toggleFetchingProgress(false, uID))
-        })
+export const followTC = (uID: number): AppThunk => (async (dispatch) => {
+    dispatch(toggleFetchingProgress(true, uID))
+    let data = await usersAPI.follow(uID)
+    if (data.resultCode === 0) {
+        dispatch(followSuccess(uID))
     }
-}
+    dispatch(toggleFetchingProgress(false, uID))
+})
+
+export const unfollowTC = (uID: number): AppThunk => (async (dispatch) => {
+    dispatch(toggleFetchingProgress(true, uID))
+    let data = await usersAPI.unfollow(uID)
+    if (data.resultCode === 0) {
+        dispatch(unfollowSuccess(uID))
+    }
+    dispatch(toggleFetchingProgress(false, uID))
+})
