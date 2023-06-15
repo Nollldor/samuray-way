@@ -102,7 +102,7 @@ export const profileReducer = (state = initialState, action: ActionsTypes) => {
         case 'SET-USER-PROFILE':
             return {...state, profile: action.userProfile}
         case "DELETE-POST":
-            return {...state, posts: state.posts.filter((p)=> p.id !== action.postId)}
+            return {...state, posts: state.posts.filter((p) => p.id !== action.postId)}
         default:
             return state
     }
@@ -110,27 +110,24 @@ export const profileReducer = (state = initialState, action: ActionsTypes) => {
 
 
 export const getProfileThunk = (userID: number): AppThunk => {
-    return (dispatch) => {
-        profileAPI.getProfile(userID).then(data => {
-            dispatch(setUserProfile(data))
-        })
+    return async (dispatch) => {
+        let data = await profileAPI.getProfile(userID)
+        dispatch(setUserProfile(data))
     }
 }
 
 export const getStatusThunk = (userID: number): AppThunk => {
-    return (dispatch) => {
-        profileAPI.getStatus(userID).then(data => {
-            dispatch(setStatus(data))
-        })
+    return async (dispatch) => {
+        let data = await profileAPI.getStatus(userID)
+        dispatch(setStatus(data))
     }
 }
 
 export const updateStatusThunk = (status: string): AppThunk => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status).then(data => {
-            data.resultCode === 0 &&
-            dispatch(setStatus(status))
-        })
+    return async (dispatch) => {
+        let data = await profileAPI.updateStatus(status)
+        data.resultCode === 0 &&
+        dispatch(setStatus(status))
     }
 }
 
