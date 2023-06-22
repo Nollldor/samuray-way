@@ -1,4 +1,4 @@
-import {createStore, combineReducers, applyMiddleware, AnyAction} from "redux";
+import {createStore, combineReducers, applyMiddleware, AnyAction, compose} from "redux";
 import {addPost, deletePost, profileReducer, setStatus, setUserProfile} from "./profile-reducer";
 import {
     AddMessageActionCreator,
@@ -45,8 +45,17 @@ const rootReducer = combineReducers({
     form: formReducer
 })
 
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(rootReducer, applyMiddleware(thunk))
+export const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunk)))
+
+
+/*export const store = createStore(rootReducer, applyMiddleware(thunk))*/
 
 export type StateType = ReturnType<typeof store.getState>
 

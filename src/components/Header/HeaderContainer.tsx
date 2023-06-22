@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {authMeThunk, setUserData} from "../../redux/auth-reducer";
 import {StateType} from "../../redux/redux-store";
 
 
