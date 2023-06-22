@@ -7,7 +7,7 @@ export type locationType = {
     city: string
 }
 
-export type userType = {
+export type UserType = {
     id: number
     photos: {
         small: string
@@ -19,8 +19,8 @@ export type userType = {
     /*location: locationType*/
 }
 
-export type usersPageType = {
-    users: userType[]
+export type UsersPageType = {
+    users: UserType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
@@ -29,7 +29,7 @@ export type usersPageType = {
 }
 
 
-const initialState: usersPageType = {
+const initialState: UsersPageType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 19,
@@ -51,7 +51,7 @@ export type unfollowAT = {
 
 export type setUsersAT = {
     type: 'SET-USERS'
-    users: userType[]
+    users: UserType[]
 }
 
 export type setCurrentPageAT = {
@@ -85,7 +85,7 @@ export const unfollowSuccess = (id: number): unfollowAT => ({
     id
 })
 
-export const setUsers = (users: userType[]): setUsersAT => ({
+export const setUsers = (users: UserType[]): setUsersAT => ({
     type: "SET-USERS",
     users
 })

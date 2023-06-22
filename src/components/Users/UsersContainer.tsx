@@ -1,5 +1,5 @@
 import React, {FC, useEffect} from "react";
-import {followTC, getUsersTC, setCurrentPage, unfollowTC, usersPageType, userType} from "../../redux/users-reducer";
+import {followTC, getUsersTC, setCurrentPage, unfollowTC, UsersPageType, UserType} from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,10 +18,10 @@ type UsersPropsType = {
 
 export const UsersContainer: FC<UsersPropsType> = () => {
 
-    const UserPageData = useSelector<StateType, usersPageType>(state => state.usersPage)
+    const UserPageData = useSelector<StateType, UsersPageType>(state => state.usersPage)
     const dispatch = useDispatch()
 
-    const users: userType[] = getUsers(UserPageData)
+    const users: UserType[] = getUsers(UserPageData)
     const pageSize: number = getPageSize(UserPageData)
     const totalUsersCount: number = getTotalUsersCount(UserPageData)
     const currentPage: number = getCurrentPage(UserPageData)
