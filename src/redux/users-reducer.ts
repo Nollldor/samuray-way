@@ -1,5 +1,6 @@
 import {ActionsTypes, AppThunk, DispatchType} from "./redux-store";
 import {FollowResponseType, usersAPI} from "../api/api";
+import {updateObjectInArray} from "../utils/users-helper";
 
 export type locationType = {
     country: string
@@ -114,9 +115,9 @@ export const toggleFetchingProgress = (isFetching: boolean, uID: number): toggle
 export const usersReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case "FOLLOW":
-            return {...state, users: state.users.map(el => el.id === action.id ? {...el, followed: true} : el)}
+            return {...state, users: updateObjectInArray(state.users, action.id, {followed: true})}
         case "UNFOLLOW":
-            return {...state, users: state.users.map(el => el.id === action.id ? {...el, followed: false} : el)}
+            return {...state, users: updateObjectInArray(state.users, action.id, {followed: false})}
         case "SET-USERS":
             return {...state, users: [...action.users]}
         case "SET-CURRENT-PAGE":
