@@ -1,10 +1,11 @@
-import React, {FC, useEffect} from "react";
-import styles from "./users.module.css";
-import userPhoto from "../../assets/img/small-user-avatar.png";
-import {userType} from "../../redux/users-reducer";
+import React, {FC} from "react";
+import styles from "components/Users/Users.module.css";
+import userPhoto from "assets/img/small-user-avatar.png";
+import {userType} from "redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {Paginator} from "./Paginator";
+import {Paginator} from "components/common/Paginator/Paginator";
+
 
 type UsersPropsType = {
     currentPage: number
@@ -29,11 +30,6 @@ export const Users: FC<UsersPropsType> = (
         fetchingInProgress,
     }) => {
     const dispatch = useDispatch()
-    const pageCount = Math.ceil(totalUsersCount / pageSize)
-    let pages = []
-    for (let i = 1; i <= pageCount; i++) {
-        pages.push(i)
-    }
 
     return (
         <div>

@@ -1,10 +1,10 @@
 import {FC} from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/FormControls/FormControls";
-import {requiredField} from "../../utils/validators/validators";
-import {loginThunk} from "../../redux/auth-reducer";
+import {requiredField} from "utils/validators/validators";
+import {loginThunk} from "redux/auth-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {StateType} from "../../redux/redux-store";
+import {StateType} from "redux/redux-store";
 import { useNavigate } from 'react-router-dom';
 import styles from "../../components/common/FormControls/FormControl.module.css"
 

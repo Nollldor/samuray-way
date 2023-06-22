@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import styles from "./paginator.module.css"
+import styles from "components/common/Paginator/Paginator.module.css"
 
 type PropsType = {
     totalUsersCount: number
