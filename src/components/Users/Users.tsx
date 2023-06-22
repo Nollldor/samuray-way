@@ -4,6 +4,7 @@ import userPhoto from "../../assets/img/small-user-avatar.png";
 import {userType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {Paginator} from "./Paginator";
 
 type UsersPropsType = {
     currentPage: number
@@ -36,10 +37,8 @@ export const Users: FC<UsersPropsType> = (
 
     return (
         <div>
-            <div>
-                {pages.map((p, i) => <span className={currentPage === p ? styles.selectedPage : ""} key={i}
-                                           onClick={() => onPageChanged(p)}>{p}</span>)}
-            </div>
+            <Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}
+                       totalUsersCount={totalUsersCount}/>
             {
                 users.map(u => {
                     return (
