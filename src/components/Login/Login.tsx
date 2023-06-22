@@ -50,6 +50,7 @@ export const Login = () => {
         if (isAuth) {
             navigate("/profile");
         }
+
     }, [isAuth, navigate]);
 
     const onSubmit = (loginData: LoginDataType) => {
