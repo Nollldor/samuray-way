@@ -7,7 +7,7 @@ import {User} from "components/Users/User/User";
 type UsersPropsType = {
     currentPage: number
     pageSize: number
-    totalUsersCount: number
+    totalItemsCount: number
     unfollow: (id: number) => void
     follow: (id: number) => void
     onPageChanged: (page: number) => void
@@ -19,7 +19,7 @@ export const Users: FC<UsersPropsType> = (
     {
         currentPage,
         pageSize,
-        totalUsersCount,
+        totalItemsCount,
         follow,
         unfollow,
         onPageChanged,
@@ -30,7 +30,7 @@ export const Users: FC<UsersPropsType> = (
     return (
         <div>
             <Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}
-                       totalUsersCount={totalUsersCount}/>
+                       totalItemsCount={totalItemsCount} portionSize={10}/>
             {
                 users.map(u => {
                     return (

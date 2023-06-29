@@ -45,7 +45,7 @@ export const UsersContainer: FC<UsersPropsType> = () => {
             <Users
                 users={users}
                 pageSize={pageSize}
-                totalUsersCount={totalUsersCount}
+                totalItemsCount={totalUsersCount}
                 currentPage={currentPage}
                 onPageChanged={onPageChanged}
                 follow={followTC}
