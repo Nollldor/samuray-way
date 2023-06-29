@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Paginator component renders correctly with current page selected 1`] = `
+<div
+  className="paginator"
+>
+  <span
+    className="pageNumber"
+    onClick={[Function]}
+  >
+    1
+  </span>
+  <span
+    className="selectedPage pageNumber"
+    onClick={[Function]}
+  >
+    2
+  </span>
+</div>
+`;
